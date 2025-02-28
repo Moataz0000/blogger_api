@@ -11,25 +11,58 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('taggit', '0006_rename_taggeditem_content_type_object_id_taggit_tagg_content_8fc721_idx'),
-        ('users', '0001_initial'),
+        (
+            "taggit",
+            "0006_rename_taggeditem_content_type_object_id_taggit_tagg_content_8fc721_idx",
+        ),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Post',
+            name="Post",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, unique=True)),
-                ('slug', models.SlugField(max_length=255, unique=True)),
-                ('content', models.TextField()),
-                ('image', models.ImageField(blank=True, null=True, upload_to='posts/images')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='posts', to='users.author')),
-                ('tags', taggit.managers.TaggableManager(help_text='A comma-separated list of tags.', through='taggit.TaggedItem', to='taggit.Tag', verbose_name='Tags')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, unique=True)),
+                ("slug", models.SlugField(max_length=255, unique=True)),
+                ("content", models.TextField()),
+                (
+                    "image",
+                    models.ImageField(blank=True, null=True, upload_to="posts/images"),
+                ),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="posts",
+                        to="users.author",
+                    ),
+                ),
+                (
+                    "tags",
+                    taggit.managers.TaggableManager(
+                        help_text="A comma-separated list of tags.",
+                        through="taggit.TaggedItem",
+                        to="taggit.Tag",
+                        verbose_name="Tags",
+                    ),
+                ),
             ],
             options={
-                'indexes': [models.Index(fields=['created_at'], name='posts_post_created_dadbfe_idx')],
+                "indexes": [
+                    models.Index(
+                        fields=["created_at"], name="posts_post_created_dadbfe_idx"
+                    )
+                ],
             },
         ),
     ]
